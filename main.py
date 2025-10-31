@@ -40,10 +40,14 @@ def main():
         for item in updatable:
             item.update(dt)
 
-        for item in asteroids:
-            if player.collision_check(item):
+        for asteroid in asteroids:
+            if player.collision_check(asteroid):
                 print("Game over!")
                 exit(0)
+            for bullet in shots:
+                if bullet.collision_check(asteroid):
+                    bullet.kill()
+                    asteroid.split()
 
         pygame.display.flip()
         tick = clock.tick(60)
